@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Bored? Get an Activity!{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+  <h1 class="mb-4">😎 Feeling Bored?</h1>
+  <p class="lead mb-4">Click below and get an instant activity suggestion!</p>
+  
+  <button id="new-activity" class="btn btn-warning btn-lg mb-5">
+    <span class="spinner d-none">⟳</span> Suggest Something Fun!
+  </button>
+
+  <div id="activity-card" class="card mx-auto d-none shadow-lg" style="max-width: 700px;">
+    <div class="card-header bg-warning text-dark">
+      <h4 class="mb-0" id="activity">Loading…</h4>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Type:</strong> <span id="type">-</span></li>
+        <li class="list-group-item"><strong>Participants:</strong> <span id="participants">-</span></li>
+        <li class="list-group-item" id="price-row" style="display:none;">
+          <strong>Price:</strong> <span id="price">-</span>
+        </li>
+        <li class="list-group-item"><strong>Accessibility:</strong> <span id="accessibility">-</span></li>
+        <li class="list-group-item" id="link-row" style="display:none;">
+          <strong>Link:</strong> 
+          <a id="link" href="#" target="_blank" class="btn btn-sm btn-outline-primary">More info →</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('new-activity').addEventListener('click', () => {
+  const btn = document.getElementById('new-activity');
+  const spinner = btn.querySelector('.spinner');
+  const card = document.getElementById('activity-card');
+  
+  btn.disabled = true;
+  spinner.classList.remove('d-none');
+  card.classList.add('d-none');
+
+  fetch('/api/bored')
+    .then(r => r.json())
+    .then(data => {
+      // Activity & basic fields
+      document.getElementById('activity').textContent = data.activity || "Do something awesome!";
+      
+      // Type – capitalize
+      const type = (data.type || "unknown").trim();
+      document.getElementById('type').textContent = type.charAt(0).toUpperCase() + type.slice(1);
+      
+      document.getElementById('participants').textContent = data.participants || 1;
+
+      // Price – only show if exists
+      if (data.price !== undefined && data.price !== null) {
+        const priceLevel = "Free 💸".repeat(Math.round(data.price * 5)) || "Free";
+        document.getElementById('price').textContent = priceLevel;
+        document.getElementById('price-row').style.display = 'block';
+      } else {
+        document.getElementById('price-row').style.display = 'none';
+      }
+
+      // Accessibility
+      const acc = data.accessibility !== undefined ? (data.accessibility * 100).toFixed(0) + "% accessible" : "Unknown";
+      document.getElementById('accessibility').textContent = acc;
+
+      // Link – only show if exists and is not empty
+      const linkEl = document.getElementById('link');
+      const linkRow = document.getElementById('link-row');
+      if (data.link && data.link.trim() !== "") {
+        linkEl.href = data.link;
+        linkRow.style.display = 'block';
+      } else {
+        linkRow.style.display = 'none';
+      }
+
+      card.classList.remove('d-none');
+    })
+    .catch(() => {
+      document.getElementById('activity').textContent = "Oops! Try again in a second 😊";
+    })
+    .finally(() => {
+      btn.disabled = false;
+      spinner.classList.add('d-none');
+    });
+});
+</script>
+{% endblock %}

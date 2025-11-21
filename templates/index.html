@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Home - API Playground{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-8 mx-auto text-center">
+    <h1 class="display-4 mb-4">Welcome to the API Playground 🎉</h1>
+    <p class="lead">A simple Flask dashboard demonstrating three fun free APIs:</p>
+    
+    <div class="row g-4 mt-4">
+      <div class="col-md-4">
+        <div class="card h-100 border-primary">
+          <div class="card-body text-center">
+            <h2 class="card-title fs-1">💡</h2>
+            <h5>Advice Slip</h5>
+            <p>Get random life advice whenever you need it.</p>
+            <a href="/advice" class="btn btn-outline-primary">Get Advice →</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-success">
+          <div class="card-body text-center">
+            <h2 class="card-title fs-1">🎬</h2>
+            <h5>GIPHY Search</h5>
+            <p>Browse trending GIFs or search anything.</p>
+            <a href="/giphy" class="btn btn-outline-success">Find GIFs →</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 border-warning">
+          <div class="card-body text-center">
+            <h2 class="card-title fs-1">😎</h2>
+            <h5>Bored API</h5>
+            <p>Never be bored again — get a random activity!</p>
+            <a href="/bored" class="btn btn-outline-warning">I'm Bored →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

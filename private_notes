@@ -1,0 +1,10 @@
+pip install python-dotenv
+Description:
+python-dotenv is a popular Python library that lets your app automatically load environment 
+variables from a .env file into os.getenv() 
+
+pip install -r requirements.txt 
+Description:
+simply tells Python:
+“Hey, go download and install these two missing tools, found in requirements.txt, from the internet so my code can actually run.”
+You have to have the requirements.txt file created before you run this.

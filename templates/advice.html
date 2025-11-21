@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Random Advice{% endblock %}
+
+{% block content %}
+<div class="text-center">
+  <h1 class="mb-4">💡 Random Advice Generator</h1>
+  <div class="card mx-auto" style="max-width: 500px;">
+    <div class="card-body">
+      <p class="card-text fs-4" id="advice-text">Click the button 👇</p>
+      <button id="new-advice" class="btn btn-primary btn-lg mt-3">Give Me Advice!</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('new-advice').addEventListener('click', () => {
+  fetch('/api/advice')
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById('advice-text').textContent = `"${data.slip.advice}"`;
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}GIPHY Explorer{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">🎬 GIPHY Explorer</h1>
+
+<form class="mb-4">
+  <div class="input-group">
+    <input type="text" name="q" class="form-control form-control-lg" placeholder="Search GIFs..." value="{{ query }}">
+    <button class="btn btn-primary btn-lg">Search</button>
+  </div>
+</form>
+
+<div class="row row-cols-2 row-cols-md-4 g-3">
+  {% for gif in gifs %}
+  <div class="col">
+    <img src="{{ gif.images.fixed_height.url }}" class="img-fluid rounded" alt="{{ gif.title }}">
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
