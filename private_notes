@@ -8,3 +8,19 @@ Description:
 simply tells Python:
 “Hey, go download and install these two missing tools, found in requirements.txt, from the internet so my code can actually run.”
 You have to have the requirements.txt file created before you run this.
+
+
+Changes needed to publish to Vercel:
+my-flask-app/
+├── api/
+│   └── index.py          # ← your Flask app goes here (renamed)
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   ├── advice.html
+│   ├── giphy.html
+│   └── bored.html
+├── .gitignore
+├── requirements.txt      # ← must be here
+├── vercel.json           # ← critical
+└── .env                  # ← only for local, ignored on Vercel
